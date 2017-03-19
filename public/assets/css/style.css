@@ -1,0 +1,31 @@
+.panel{
+	background-color: gray;
+	padding: 8px;
+	margin: 8px;
+}
+
+/*.mainImageHolder{
+	width: 20%;
+	height: 100%
+}*/
+
+.mainImage{
+	display: inline-block;
+	width: 20%;
+}
+
+/*.description{
+	vertical-align: top;
+	display: inline-block;
+}
+
+.price{
+	display: inline-block;
+}*/
+
+.infoHolder {
+	padding: 10px;
+	vertical-align: top;
+	width: 60%;
+	display: inline-block;
+}
