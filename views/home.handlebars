@@ -3,11 +3,15 @@
 
 {{#each allPosts}}
   <div class="panel">
+  <div class="content">
   <img class="mainImage" src={{this.img}}>
   <div class="infoHolder">
   <div class="description">{{this.desc}}</div>
   <div class="price">{{this.price}}</div>
+  
+  </div>
   <a href="{{this.url}}">Original CL Post</a>
+    <div class="showComments">Show Comments</div>
   </div>
   <div class="commentsHolder">
   {{#each this.comment}}
@@ -16,7 +20,10 @@
   </div>
   {{/each}}
   </div>
+  <div class="addCommentContainer">
+    <div class="commentDivider"></div>
    <textarea name="comment">Add a comment</textarea><button class="addComment" data="{{this._id}}">Add Comment</button>
+   </div>
  </div>
 {{/each}}
 

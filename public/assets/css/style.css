@@ -1,13 +1,45 @@
 .panel{
+	position: relative;
 	background-color: rgba(240, 240, 240, 1);
 	padding: 8px;
 	margin: 8px;
 }
 
-/*.mainImageHolder{
-	width: 20%;
-	height: 100%
-}*/
+.content{
+	position: relative;
+}
+
+.showComments{
+	background-color: rgba(3, 9, 112, .5);
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, .5);
+	padding: 10px;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+
+.addCommentContainer{
+	display: none;
+}
+
+.commentsHolder{
+	display: none;
+	position: relative;
+}
+
+a {
+	font-family: 'Open Sans', sans-serif;
+	position: absolute;
+	bottom: 14px;
+	left: 21%;
+	font-size: 14px;
+	color: rgba(4, 12, 150, 1);
+	text-decoration: none;
+}
 
 .mainImage{
 	display: inline-block;
@@ -15,28 +47,34 @@
 	margin-bottom: 10px;
 }
 
-/*.description{
-	vertical-align: top;
-	display: inline-block;
+.description{
+	color: rgba(3, 8, 107, 1);
+	font-size: 25px;
+	font-family: 'Pathway Gothic One', sans-serif;
+	margin-bottom: 20px;
 }
 
 .price{
 	display: inline-block;
-}*/
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	color: rgba(3, 8, 107, .5);
+}
 
 
 
 .infoHolder {
+	position: relative;
 	padding: 10px;
 	vertical-align: top;
 	width: 60%;
 	display: inline-block;
+	height: auto;
 }
 
 .commentDivider{
 	position: relative;
 	padding: 10px;
-	border-bottom: 1px solid;
 	border-top: 1px solid;
 	border-color: rgba(220, 220, 220, 1);
 }

@@ -136,6 +136,19 @@ router.post("/newComment", function(req, res) {
         }
     });
 });
+router.post("/deleteComment", function(req, res) {
+    Comment.remove({ _id: req.body.id }, function(err) {
+        if (err) {
+        	console.log(err)
+        } else {
+        	res.json('removed');
+        }
+    });
+        
+});
+
+
+
 
 
 
