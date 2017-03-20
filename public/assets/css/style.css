@@ -1,5 +1,5 @@
 .panel{
-	background-color: gray;
+	background-color: rgba(240, 240, 240, 1);
 	padding: 8px;
 	margin: 8px;
 }
@@ -12,6 +12,7 @@
 .mainImage{
 	display: inline-block;
 	width: 20%;
+	margin-bottom: 10px;
 }
 
 /*.description{
@@ -23,9 +24,30 @@
 	display: inline-block;
 }*/
 
+
+
 .infoHolder {
 	padding: 10px;
 	vertical-align: top;
 	width: 60%;
 	display: inline-block;
+}
+
+.commentDivider{
+	position: relative;
+	padding: 10px;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	border-color: rgba(220, 220, 220, 1);
+}
+
+.commentRemove {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+.addComment {
+	position: absolute;
+	right: 10px;
 }

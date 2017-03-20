@@ -13,10 +13,12 @@ var PostSchema = new Schema({
     dropDups: true
   },
   url: {
-    type: String
+    type: String,
+    unique : true
   },  
   desc: {
-    type: String
+    type: String,
+    unique : true
   },  
   img: {
     type: String

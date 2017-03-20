@@ -3,12 +3,14 @@ var router = express.Router();
 var path = require('path');
 var app = express();
 var PORT = process.env.PORT || 4567;
-var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
 var request = require("request");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 mongoose.Promise = Promise;
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 var Comment = require("../models/Comment.js");
 var Post = require("../models/Post.js");
@@ -27,22 +29,37 @@ db.once("open", function() {
 });
 
 router.get("/", function(req, res) {
-    Post.find({}, function(error, doc) {
-        // Log any errors
+    Post.find({}).populate('comment').exec( function(error, doc) {
+
         if (error) {
             console.log(error);
         } else {
-            var dataObject = {
+            var dataObject = {}
+            dataObject = {
                 allPosts: doc
             };
             res.render("home", dataObject);
         }
     });
-
-
-
-
 });
+
+// app.get("/articles/:id", function(req, res) {
+//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+//   Article.findOne({ "_id": req.params.id })
+//   // ..and populate all of the notes associated with it
+//   .populate("note")
+//   // now, execute our query
+//   .exec(function(error, doc) {
+//     // Log any errors
+//     if (error) {
+//       console.log(error);
+//     }
+//     // Otherwise, send the doc to the browser as a json object
+//     else {
+//       res.json(doc);
+//     }
+//   });
+// });
 
 router.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
@@ -87,6 +104,37 @@ router.get("/scrape", function(req, res) {
     });
     // Tell the browser that we finished scraping the text
     res.send("Scrape Complete");
+});
+
+router.post("/newComment", function(req, res) {
+
+    var dataObject = {
+        comment: req.body.text
+    }
+    var newComment = new Comment(dataObject);
+
+    newComment.save(function(error, doc) {
+        if (error) {
+            console.log(error);
+        } else {
+
+            // {$push: {"messages": {title: title, msg: msg}}},
+            // Use the article id to find and update it's note
+            Post.findOneAndUpdate({ "_id": req.body.id }, { $push: { "comment": doc._id } })
+                // Execute the above query
+                .exec(function(err, doc) {
+                    // Log any errors
+                    if (err) {
+                        console.log(err);
+                    } else {
+                    	var updatedObject = {}
+                        updatedObject.id = doc.comment[0]
+                        updatedObject.text = req.body.text
+                        res.send(updatedObject);
+                    }
+                });
+        }
+    });
 });
 
 

@@ -9,10 +9,19 @@
   <div class="price">{{this.price}}</div>
   <a href="{{this.url}}">Original CL Post</a>
   </div>
+  <div class="commentsHolder">
+  {{#each this.comment}}
+  <div class="commentDivider">
+  <p class="comment">{{this.comment}}</p><button class="commentRemove" data="{{this._id}}">&times;</button>
+  </div>
+  {{/each}}
+  </div>
+   <textarea name="comment">Add a comment</textarea><button class="addComment" data="{{this._id}}">Add Comment</button>
  </div>
 {{/each}}
 
 </div>
+<script type="text/javascript" src="./javascript/home.js"></script>
 
     
       

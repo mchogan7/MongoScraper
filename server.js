@@ -7,6 +7,10 @@ var routes = require("./controllers/route_controller.js");
 var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 
 
