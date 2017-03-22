@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 var Comment = require("../models/Comment.js");
 var Post = require("../models/Post.js");
 
-mongoose.connect("mongodb://localhost/darrellist");
+mongoose.connect("mongodb://heroku_b6k517l3:77tu0cak1a9omhsnghoqkicqau@ds139430.mlab.com:39430/heroku_b6k517l3");
 var db = mongoose.connection;
 
 // Show any mongoose errors
