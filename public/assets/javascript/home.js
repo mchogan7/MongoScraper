@@ -1,13 +1,9 @@
-var that
+var thisHolder
 
 $('.panel').on('click', '.addComment', function(){
-	that = $(this).siblings('.commentsHolder')
-	var dataTest = {}
+	thisHolder = $(this).parents('.addCommentContainer').siblings('.commentsHolder')
 	var postID = $(this).attr('data')
 	var commentText = $(this).siblings('textarea').val()
-	console.log('click')
-	console.log(postID)
-	console.log(commentText)
   
   $.ajax({
     type: "POST",
@@ -20,8 +16,8 @@ $('.panel').on('click', '.addComment', function(){
   })
 
   .done(function(data) {
-  	console.log(data)
-	that.append('<div class="commentDivider"><p class="comment">'+ data.text + '</p><button class="commentRemove" data="' + data.id + '">&times;</button>')
+    console.log(data)
+	thisHolder.append('<div class="commentDivider"><p class="comment">'+ data.text + '</p><button class="commentRemove" data="' + data.id + '">&times;</button>')
 
   }
   );
@@ -31,6 +27,7 @@ $('.panel').on('click', '.addComment', function(){
 $('.panel').on('click', '.commentRemove', function(){
 	var that = $(this)
 	var commentID = $(this).attr('data')
+  console.log(commentID)
 	  $.ajax({
     type: "POST",
     dataType: "json",
@@ -41,7 +38,6 @@ $('.panel').on('click', '.commentRemove', function(){
   })
 
   .done(function(data) {
-  	console.log(data)
   that.parents('.commentDivider').remove()
 
   }
@@ -55,5 +51,11 @@ $(this).val('')
 $('.panel').on('click', '.showComments', function(){
 	$(this).parents('.panel').find('.commentsHolder').slideToggle()
 	$(this).parents('.panel').find('.addCommentContainer').slideToggle()
+	
+	if ($(this).text() === 'SHOW COMMENTS'){
+		$(this).text('HIDE COMMENTS')
+	} else {
+		$(this).text('SHOW COMMENTS')
+	}
 })
 

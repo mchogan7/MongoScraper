@@ -43,39 +43,24 @@ router.get("/", function(req, res) {
     });
 });
 
-// app.get("/articles/:id", function(req, res) {
-//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-//   Article.findOne({ "_id": req.params.id })
-//   // ..and populate all of the notes associated with it
-//   .populate("note")
-//   // now, execute our query
-//   .exec(function(error, doc) {
-//     // Log any errors
-//     if (error) {
-//       console.log(error);
-//     }
-//     // Otherwise, send the doc to the browser as a json object
-//     else {
-//       res.json(doc);
-//     }
-//   });
-// });
-
 router.get("/scrape", function(req, res) {
-    // First, we grab the body of the html with request
+
     request("https://austin.craigslist.org/search/sss?query=darrell+%7C+darrel+%7C+Daryll+%7C+Darylin+%7C+Darel+%7C+Derrill&sort=rel&bundleDuplicates=1&searchNearby=2&nearbyArea=326&nearbyArea=327&nearbyArea=53&nearbyArea=449&nearbyArea=564&nearbyArea=270", function(error, response, html) {
-        // Then, we load that into cheerio and save it to $ for a shorthand selector
+
         var $ = cheerio.load(html);
 
-        // Now, we grab every h2 within an article tag, and do the following:
+
         $(".result-row").each(function(i, element) {
 
-            // Save an empty result object
             var result = {};
             result.desc = $(this).find('a.hdrlnk').text();
             result.clID = $(this).attr('data-pid')
             result.url = $(this).find('a.hdrlnk').attr('href')
             result.price = $(this).find('a').children('.result-price').text();
+            //check to see if it is not a relative file location.
+            if(result.url.substring(0, 2) != '//'){
+                result.url = '//austin.craigslist.org' + result.url
+            }
 
             var getImage = $(this).children().first('a.result-image').attr('data-ids')
 
@@ -90,11 +75,11 @@ router.get("/scrape", function(req, res) {
             var entry = new Post(result);
 
             entry.save(function(err, doc) {
-                // Log any errors
+   
                 if (err) {
                     console.log(err);
                 }
-                // Or log the doc
+
                 else {
                     console.log(doc);
                 }
@@ -102,8 +87,8 @@ router.get("/scrape", function(req, res) {
         });
 
     });
-    // Tell the browser that we finished scraping the text
-    res.send("Scrape Complete");
+
+    res.redirect("/");
 });
 
 router.post("/newComment", function(req, res) {
@@ -128,8 +113,8 @@ router.post("/newComment", function(req, res) {
                         console.log(err);
                     } else {
                     	var updatedObject = {}
-                        updatedObject.id = doc.comment[0]
-                        updatedObject.text = req.body.text
+                        updatedObject.id = newComment._id
+                        updatedObject.text = newComment.comment
                         res.send(updatedObject);
                     }
                 });

@@ -1,5 +1,8 @@
 <div class="Entries Body">
-  <header>Darrellist</header>
+  <header><h1 class="title1">DARREL</h1><h1 class="title2">LIST</h1>
+<p class="intro">This site scrapes the Austin area Craigslist for posts with any of 8 different spellings of Darrell.</p>
+  </header>
+<div class="scrape"><a href="/scrape"> <button class="scrapeButton">Scrape for Latest Darrells</button></a></div>
 
 {{#each allPosts}}
   <div class="panel">
@@ -10,8 +13,8 @@
   <div class="price">{{this.price}}</div>
   
   </div>
-  <a href="{{this.url}}">Original CL Post</a>
-    <div class="showComments">Show Comments</div>
+  <a class="origLink" href="{{this.url}}" target="_blank">Original CL Post</a>
+    <div class="showComments">SHOW COMMENTS</div>
   </div>
   <div class="commentsHolder">
   {{#each this.comment}}
